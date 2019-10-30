@@ -34,7 +34,6 @@ import renderInput from '../../components/Form/RenderInput';
 import {withFormik, Field} from 'formik';
 import RenderModal from '../../components/Form/RenderModal'
 import StepLoading from "../../components/Loaders/StepLoading";
-import {toast} from "react-toastify";
 import DataTableInfo from '../../components/DataTable/DataTableInfo'
 import 'react-select/dist/react-select.css';
 /**
@@ -138,12 +137,13 @@ export const EnhancedModalForm = withFormik({
    */
   handleSubmit: (values, bag) => {
     let data = {
-      "mno": bag.props.mno,
-      "MSISDN": {
-        "CC": bag.props.countryCode,
-        "SN": bag.props.selectedMsisdn.substr(bag.props.countryCode.length)
-      },
-      "IMSI": values.imsi
+      "operator": bag.props.mno,
+      // "msisdn": {
+      //   "CC": bag.props.countryCode,
+      //   "SN": bag.props.selectedMsisdn.substr(bag.props.countryCode.length)
+      // },
+      "msisdn": bag.props.selectedMsisdn,
+      "imsi": values.imsi
     }
     /**
      * Add single MNO API call
@@ -251,7 +251,7 @@ class Requests extends Component {
     this.setState({
       loading: true
     })
-    instance.get(`mno-first-page?mno=${this.state.mno}&start=${this.state.start}&limit=${this.state.limit}`, config)
+    instance.get(`mno-home-page?operator=${this.state.mno}&start=${this.state.start}&limit=${this.state.limit}`, config)
       .then(response => {
         this.setState({
           data: response.data.cases,
@@ -303,7 +303,7 @@ class Requests extends Component {
   downloadRequests(config, e) {
     e.preventDefault()
     let mno = this.state.mno
-    instance.get(`mno-bulk-download?mno=${mno}`, config)
+    instance.get(`bulk-msisdn-download?operator=${mno}`, config)
       .then(response => {
         if (response.status === 200) {
           try {
@@ -342,7 +342,7 @@ class Requests extends Component {
    * @param: data
    */
   addSingleIMSI(config, data) {
-    instance.put(`mno-single-upload`, data, config)
+    instance.put(`single-imsi-upload`, data, config)
       .then(response => {
         if (response.status === 200) {
           this.closeModal()

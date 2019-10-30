@@ -128,7 +128,7 @@ export const EnhancedFileForm = withFormik({
      * @type {FormData}
      */
     const formData = new FormData();
-    formData.append('mno', bag.props.mno);
+    formData.append('operator', bag.props.mno);
     formData.append('file', values.file);
     bag.props.bulkUpload(formData)
   },
@@ -172,7 +172,7 @@ class BulkUpload extends Component {
   }
   bulkUpload(config,formData){
     this.setLoading(true)
-    instance.post(`mno-bulk-upload`, formData, config)
+    instance.post(`bulk-imsi-upload`, formData, config)
       .then(response => {
         if (response.status === 200) {
           this.setLoading(false)

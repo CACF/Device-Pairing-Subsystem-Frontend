@@ -148,16 +148,16 @@ function prepareAPIRequest(values) {
     // Validate Values before sending
     const searchParams = {};
     if(values.imei) {
-        searchParams.IMEI = values.imei
+        searchParams.imei = values.imei
     }
     if(values.serial_no) {
-        searchParams.Serial_No = values.serial_no
+        searchParams.serial_no = values.serial_no
     }
     if(values.mac) {
-        searchParams.MAC = values.mac
+        searchParams.mac = values.mac
     }
     if(values.contact) {
-        searchParams.CONTACT = values.contact
+        searchParams.contact = values.contact
     }
     return searchParams;
 }
@@ -257,12 +257,25 @@ class SearchRequests extends Component {
       let start = this.state.start;
       let limit = this.state.limit;
       let searchQuery = this.state.searchQuery;
-      const postSearchData = {
-        "start": start,
-        "limit": limit,
-        "search_args": searchQuery
+      let postSearchData = '';
+      if(searchQuery.contact)
+      {
+        postSearchData += '&contact=' + searchQuery.contact;
       }
-      instance.post('/authority-search?start='+start+'&limit='+limit, postSearchData, config)
+      if(searchQuery.imei)
+      {
+        postSearchData += '&imei='+ searchQuery.imei;
+      }
+      if(searchQuery.mac)
+      {
+        postSearchData += '&mac='+ searchQuery.mac;
+      }
+      if(searchQuery.serial_no)
+      {
+        postSearchData += '&serial_no=' + searchQuery.serial_no;
+      }
+      
+      instance.get('/device-search?start='+start+'&limit='+limit + postSearchData, config)
           .then(response => {
               if(response.data.message) {
                 this.setState({ loading: false });
