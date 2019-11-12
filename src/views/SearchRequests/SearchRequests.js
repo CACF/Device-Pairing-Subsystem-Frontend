@@ -361,7 +361,7 @@ class SearchRequests extends Component {
                   <td data-label={i18n.t('brand')}>{searched_request.brand}</td>
                   <td data-label={i18n.t('modelName')}>{searched_request.model}</td>
                   <td data-label={i18n.t('serialNumber')}>{searched_request.serial_no}</td>
-                  <td data-label={i18n.t('macAddress')}>{searched_request.mac}</td>
+                  <td data-label={i18n.t('macAddress')}>{searched_request.mac==="00:00:00:00" ? "" : searched_request.mac}</td>
                   <td data-label={i18n.t('pairingCode')}>{searched_request.pair_code}</td>
                   <td data-label={i18n.t('referenceMsisdn')}>{searched_request.contact}</td>
                   <td data-label={i18n.t('pairingStatus')}>{(searched_request.is_active) ? 'Unused': 'Used'}</td>
@@ -397,7 +397,7 @@ class SearchRequests extends Component {
                             <TableLoader />
                         </div>
                     )
-                    : ((this.state.data || {}).cases || []).length > 0
+                    : ((this.state.data || {}).cases || []).length > 0 && this.state.currSearchQuery.length > 0
                     ? <div>
                         <Card className="mb-1">
                             <CardHeader className="border-bottom-0">

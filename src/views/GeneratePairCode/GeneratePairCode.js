@@ -380,7 +380,7 @@ function prepareAPIRequest(values) {
   }
   if (values.mac) {
     searchParams.mac = values.mac;
-  } 
+  }
   if (values.rat) {
     searchParams.rat = [];
     for (let i = 0; i < values.rat.length; i++) {
