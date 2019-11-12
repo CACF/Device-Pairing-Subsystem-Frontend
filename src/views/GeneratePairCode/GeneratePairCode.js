@@ -188,11 +188,11 @@ class CaseForm extends Component {
                 <Row>
                   <Col xs={12} sm={6}>
                     <Field name="mac" component={doubleEntryInput} label={i18n.t('macWiFiAddress')} type="text"
-                           placeholder={i18n.t('macWiFiAddress')} maxLength={23}/>
+                           placeholder={i18n.t('macWiFiAddress')} maxLength={23} />
                   </Col>
                   <Col xs={12} sm={6}>
                     <Field name="retype_mac" component={doubleEntryInput} label={i18n.t('retypeMacWiFiAddress')} type="text"
-                           placeholder={i18n.t('retypeMacWiFiAddress')} maxLength={23}/>
+                           placeholder={i18n.t('retypeMacWiFiAddress')} maxLength={23} />
                   </Col>
                 </Row>
 
@@ -327,10 +327,12 @@ const MyEnhancedForm = withFormik({
       errors.retype_serial_no = i18n.t('validation.enteredSerialNumberDoesnTMatch')
     }
 
-    if (!values.mac) {
+    if(values.mac) {
 
-    } else if (!/^([0-9A-F]{2,4}[.:-]){3,7}([0-9A-F]{2,4})$/i.test(values.mac)) {
-      errors.mac = i18n.t('validation.invalidFormatValidFormatsAreGivenInDescription')
+      if (!/^([0-9A-F]{2,4}[.:-]){3,7}([0-9A-F]{2,4})$/i.test(values.mac)) {
+        errors.mac = i18n.t('validation.invalidFormatValidFormatsAreGivenInDescription')
+      }
+
     }
 
     if (values.mac !== values.retype_mac) {
@@ -378,9 +380,7 @@ function prepareAPIRequest(values) {
   }
   if (values.mac) {
     searchParams.mac = values.mac;
-  } else {
-    searchParams.mac = ''
-  }
+  } 
   if (values.rat) {
     searchParams.rat = [];
     for (let i = 0; i < values.rat.length; i++) {

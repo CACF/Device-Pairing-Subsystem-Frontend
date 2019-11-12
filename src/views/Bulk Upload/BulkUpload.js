@@ -30,6 +30,7 @@ import {withFormik} from "formik";
 import RenderFileInput from "../../components/Form/RenderFileInput";
 import StepLoading from "../../components/Loaders/StepLoading";
 import i18n from 'i18next';
+import { SweetAlert } from './../../utilities/helpers';
 
 /**
  * Formik form component
@@ -174,13 +175,22 @@ class BulkUpload extends Component {
     this.setLoading(true)
     instance.post(`bulk-imsi-upload`, formData, config)
       .then(response => {
-        if (response.status === 200) {
+        if (response.data) {
           this.setLoading(false)
-          const statusDetails = {
-            icon: 'fa fa-check',
-            response: response.data,
+          if(response.data.message) {
+            SweetAlert({
+              title: i18n.t('success'),
+              message: response.data.message,
+              type: 'success'
+            });
           }
-          this.redirect(statusDetails)
+          if(response.data.msg) {
+            const statusDetails = {
+              icon: 'fa fa-check',
+              response: response.data,
+            }
+            this.redirect(statusDetails)
+          }
         }
       })
       .catch(error => {

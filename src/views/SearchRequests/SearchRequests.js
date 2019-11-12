@@ -132,6 +132,11 @@ const MyEnhancedForm = withFormik({
       if (!values.imei && !values.serial_no && !values.mac && !values.contact) {
           errors.oneOfFields = i18n.t('validation.oneOfTheAboveFieldsIsRequired')
       }
+      if (values.contact) {
+        if (values.contact.length < 12 || values.contact.length > 12) {
+          errors.contact = i18n.t('please enter 12 digit correct phone number')
+        }
+      }
       return errors;
   },
 
