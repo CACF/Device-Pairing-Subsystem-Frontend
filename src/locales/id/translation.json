@@ -117,5 +117,6 @@
   "validation.fileSize": "Batas ukuran file melebihi dari 5MB",
   "validation.IMSIMustbeDigits": "IMSI harus berupa digit saja [0-9]",
   "validation.IMSIShouldbeLessThan": "Panjang IMSI harus 15 digit",
+  "validation.pleaseEnter12DigitMSISDN": "silakan masukkan 12 digit MSISDN",
   "validation.IMSIDoesNotMatch": "IMSI tidak cocok"
 }

@@ -45,19 +45,19 @@ class SearchForm extends Component {
   handleReset(e,val) {
     e.preventDefault()
     switch(val){
-      case 'IMEI':
+      case 'imei':
         this.props.setFieldValue('imei','')
         this.props.delSearchQuery(this.props.currSearchQuery,val)
         break;
-      case 'Serial_No':
+      case 'serial_no':
         this.props.setFieldValue('serial_no','')
         this.props.delSearchQuery(this.props.currSearchQuery,val)
         break;
-      case 'MAC':
+      case 'mac':
         this.props.setFieldValue('mac','')
         this.props.delSearchQuery(this.props.currSearchQuery,val)
         break;
-      case 'CONTACT':
+      case 'contact':
         this.props.setFieldValue('contact','')
         this.props.delSearchQuery(this.props.currSearchQuery,val)
         break;
@@ -134,7 +134,7 @@ const MyEnhancedForm = withFormik({
       }
       if (values.contact) {
         if (values.contact.length < 12 || values.contact.length > 12) {
-          errors.contact = i18n.t('please enter 12 digit correct phone number')
+          errors.contact = i18n.t('validation.pleaseEnter12DigitMSISDN')
         }
       }
       return errors;
@@ -299,16 +299,16 @@ class SearchRequests extends Component {
     Object.keys(values).map(key=>{
       //if(key!=='request_type'){
         switch(key){
-          case 'IMEI':
-            query.push({filter:key,filterName:'IMEI',value: values[key]})
+          case 'imei':
+            query.push({filter:key,filterName:'imei',value: values[key]})
             break;
-          case 'Serial_No':
+          case 'serial_no':
             query.push({filter:key,filterName:i18n.t('serialNumber'),value: values[key]})
             break;
-          case 'MAC':
+          case 'mac':
             query.push({filter:key,filterName:i18n.t('macAddress'),value: values[key]})
             break;
-          case 'CONTACT':
+          case 'contact':
             query.push({filter:key,filterName:i18n.t('referenceMsisdn'),value: values[key]})
             break;
            default:

@@ -116,5 +116,6 @@
   "validation.fileSize": "File size limit exceeds from 5MB",
   "validation.IMSIMustbeDigits": "IMSI must be digits only [0-9]",
   "validation.IMSIShouldbeLessThan": "IMSI length should be 15 digits",
+  "validation.pleaseEnter12DigitMSISDN": "please enter 12 digit MSISDN",
   "validation.IMSIDoesNotMatch": "IMSIs does not match"
 }
