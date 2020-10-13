@@ -64,7 +64,7 @@ class FileInputForm extends Component {
                         <div className="col-xs-12 col-sm-6">
                           <RenderFileInput
                             onChange={setFieldValue}
-                            acceptFormats=".csv"
+                            acceptFormats={".csv" || ".txt"}
                             onBlur={setFieldTouched}
                             error={errors.file}
                             values={values.file}
@@ -111,7 +111,7 @@ export const EnhancedFileForm = withFormik({
     let errors = {}
     if (!values.file) {
       errors.file = i18n.t('validation.thisFieldIsRequired')
-    } else if (getExtension(values.file.name) !== 'csv') {
+    } else if (getExtension(values.file.name) !== 'csv' && getExtension(values.file.name) !== 'txt' ) {
       errors.file = i18n.t('validation.invalideFileExtension')
     } else if (values.file.size > 5000000) {
       errors.file = i18n.t('validation.fileSize')

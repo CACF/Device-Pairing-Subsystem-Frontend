@@ -436,7 +436,7 @@ class GeneratePairCode extends Component {
           this.setState({loading: false, caseSubmitted: true});
           //toast.success('Case has been registered successfully!');
           const statusDetails = {
-            id: response.data.pair_code,
+            id: response.data["pair-code"],
             icon: 'fa fa-check',
             action: i18n.t('registered'),
             showButton: false,
@@ -452,7 +452,6 @@ class GeneratePairCode extends Component {
       })
       .catch(error => {
         errors(this, error);
-        console.log(error);
       })
   }
 

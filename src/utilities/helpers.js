@@ -153,7 +153,7 @@ export function errors (context, error) {
       } else if (error.response.status === 422) {
         SweetAlert({
           title: i18n.t('error'),
-          message: error.response.data.Error === null ? i18n.t('unprocessibleEntity'): error.response.data.Error,
+          message: error.response.data.message === "Device with same Serial number already exists" ? i18n.t('dublicateSerialNumber'): i18n.t('dublicateIMSI'),
           type: 'error'
         });
         let errors = error.response.data.messages;
