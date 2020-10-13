@@ -45,8 +45,6 @@
   "wrongHttp" : "HTTP incorrecto",
   "validation.langError": "Idioma no soportado",
   "unprocessibleEntity" : "Entidad no procesable",
-  "dublicateSerialNumber" : "Ya existe un dispositivo con el mismo número de serie",
-  "dublicateIMSI" : "IMSI ya existe",
 
   "serialNumber": "Número de serie",
   "macAddress": "Dirección MAC",

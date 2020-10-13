@@ -44,8 +44,6 @@
   "credentialMatch": "Pencocokan Kredensial",
   "validation.langError": "Bahasa tidak didukung",
   "unprocessibleEntity" : "Entitas yang tidak dapat diproses",
-  "dublicateSerialNumber" : "Perangkat dengan nomor seri yang sama sudah ada",
-  "dublicateIMSI" : "IMSI sudah ada",
 
   "serialNumber": "Nomor seri",
   "macAddress": "Alamat MAC",
