@@ -345,8 +345,8 @@ const MyEnhancedForm = withFormik({
 
     if (!values.contact_no) {
       errors.contact_no = i18n.t('validation.thisFieldIsRequired')
-    } else if (!/^([0-9]{1,11})$/i.test(values.contact_no)) {
-      errors.contact_no = i18n.t('validation.invalidFormatValidFormatIs3001234567891')
+    } else if (!/^3([0-9]{9})$/i.test(values.contact_no)) {
+      errors.contact_no = i18n.t('validation.invalidFormatValidFormatIs30012345')
     }
 
     return errors;
