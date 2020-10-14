@@ -153,7 +153,7 @@ export function errors (context, error) {
       } else if (error.response.status === 422) {
         SweetAlert({
           title: i18n.t('error'),
-          message: error.response.data.message ? error.response.data.message: i18n.t('dublicateSerialNumber'),
+          message: error.response.data.message ? error.response.data.message: i18n.t('unprocessibleEntity'),
           type: 'error'
         });
         let errors = error.response.data.messages;

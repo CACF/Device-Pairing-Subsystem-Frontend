@@ -112,7 +112,7 @@
   "validation.serialNumberMustContainCharactersAndACombinationOf": "Nomor Seri hanya dapat berisi karakter alfanumerik",
   "validation.invalidFormatValidFormatsAreGivenInDescription": "Format tidak valid, format yang valid diberikan dalam deskripsi",
   "validation.enteredMacAddressDoesnTMatch": "Alamat MAC yang dimasukkan tidak cocok",
-  "validation.invalidFormatValidFormatIs3001234567891": "Format tidak valid, format yang valid adalah: 3001234567891",
+  "validation.invalidFormatValidFormatIs3001234567": "Format tidak valid, format yang valid adalah: 3001234567",
   "validation.invalideFileExtension": "Ekstensi file tidak valid, hanya mendukung 'csv or atau'",
   "validation.fileSize": "Batas ukuran file melebihi dari 5MB",
   "validation.IMSIMustbeDigits": "IMSI harus berupa digit saja [0-9]",
