@@ -108,7 +108,7 @@
   "validation.thisFieldIsRequired": "This field is required",
   "validation.enteredSerialNumberDoesnTMatch": "Entered Serial Number doesn't match",
   "validation.serialNumberMustBe1000CharactersOrLess": "Serial Number must be 1000 characters or less",
-  "validation.serialNumberMustContainCharactersAndACombinationOf": "The Serial Number can only contain Alphanumeric characters",
+  "validation.serialNumberMustContainCharactersAndACombinationOf": "The Serial Number cannot contain white spaces and can only be less than 100 characters",
   "validation.invalidFormatValidFormatsAreGivenInDescription": "Invalid format, valid formats are given in description",
   "validation.enteredMacAddressDoesnTMatch": "Entered MAC Address doesn't match",
   "validation.invalidFormatValidFormatIs3001234567": "Invalid format, valid format is: 3001234567",

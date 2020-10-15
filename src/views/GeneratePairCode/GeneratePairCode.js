@@ -315,7 +315,7 @@ const MyEnhancedForm = withFormik({
 
     if (!values.serial_no) {
       errors.serial_no = i18n.t('validation.thisFieldIsRequired')
-    } else if (!/^([a-zA-Z0-9])([a-zA-Z 0-9.'_-])*$/i.test(values.serial_no)) {
+    } else if (!/^\S{1,100}$/i.test(values.serial_no)) {
       errors.serial_no = i18n.t('validation.serialNumberMustContainCharactersAndACombinationOf')
     } else if (values.serial_no.length >= 1000) {
       errors.serial_no = i18n.t('validation.serialNumberMustBe1000CharactersOrLess')
@@ -346,7 +346,7 @@ const MyEnhancedForm = withFormik({
     if (!values.contact_no) {
       errors.contact_no = i18n.t('validation.thisFieldIsRequired')
     } else if (!/^3([0-9]{9})$/i.test(values.contact_no)) {
-      errors.contact_no = i18n.t('validation.invalidFormatValidFormatIs30012345')
+      errors.contact_no = i18n.t('validation.invalidFormatValidFormatIs3001234567')
     }
 
     return errors;
