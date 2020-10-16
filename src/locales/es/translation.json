@@ -4,7 +4,7 @@
   "mainNavigation": "Navegación Principal",
   "dashboardLink": "Tablero",
   "searchRequestLink": "Solicitud de búsqueda",
-  "generatePairCodeLink": "dispositivo código de par",
+  "generatePairCodeLink": "Generar código de par",
   "requestStatusLink": "Estado de la solicitud",
   "imsiRequestsLink": "Solicitudes IMSI",
   "bulkUploadLink": "Carga masiva",
