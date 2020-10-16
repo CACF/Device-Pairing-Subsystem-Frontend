@@ -4,7 +4,7 @@
   "mainNavigation": "Main Navigation",
   "dashboardLink": "Dashboard",
   "searchRequestLink": "Search Request",
-  "generatePairCodeLink": "Device Pair Code",
+  "generatePairCodeLink": "Generate Pair Code",
   "requestStatusLink": "Request Status",
   "imsiRequestsLink": "IMSI Requests",
   "bulkUploadLink": "Bulk Upload",
