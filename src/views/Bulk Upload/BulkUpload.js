@@ -30,7 +30,6 @@ import {withFormik} from "formik";
 import RenderFileInput from "../../components/Form/RenderFileInput";
 import StepLoading from "../../components/Loaders/StepLoading";
 import i18n from 'i18next';
-import { SweetAlert } from './../../utilities/helpers';
 
 /**
  * Formik form component
@@ -64,7 +63,7 @@ class FileInputForm extends Component {
                         <div className="col-xs-12 col-sm-6">
                           <RenderFileInput
                             onChange={setFieldValue}
-                            acceptFormats={".csv" || ".txt"}
+                            acceptFormats=".csv"
                             onBlur={setFieldTouched}
                             error={errors.file}
                             values={values.file}
@@ -111,7 +110,7 @@ export const EnhancedFileForm = withFormik({
     let errors = {}
     if (!values.file) {
       errors.file = i18n.t('validation.thisFieldIsRequired')
-    } else if (getExtension(values.file.name) !== 'csv' && getExtension(values.file.name) !== 'txt' ) {
+    } else if (getExtension(values.file.name) !== 'csv') {
       errors.file = i18n.t('validation.invalideFileExtension')
     } else if (values.file.size > 5000000) {
       errors.file = i18n.t('validation.fileSize')
@@ -129,7 +128,7 @@ export const EnhancedFileForm = withFormik({
      * @type {FormData}
      */
     const formData = new FormData();
-    formData.append('operator', bag.props.mno);
+    formData.append('mno', bag.props.mno);
     formData.append('file', values.file);
     bag.props.bulkUpload(formData)
   },
@@ -173,24 +172,15 @@ class BulkUpload extends Component {
   }
   bulkUpload(config,formData){
     this.setLoading(true)
-    instance.post(`bulk-imsi-upload`, formData, config)
+    instance.post(`mno-bulk-upload`, formData, config)
       .then(response => {
-        if (response.data) {
+        if (response.status === 200) {
           this.setLoading(false)
-          if(response.data.message) {
-            SweetAlert({
-              title: i18n.t('success'),
-              message: response.data.message,
-              type: 'success'
-            });
+          const statusDetails = {
+            icon: 'fa fa-check',
+            response: response.data,
           }
-          if(response.data.msg) {
-            const statusDetails = {
-              icon: 'fa fa-check',
-              response: response.data,
-            }
-            this.redirect(statusDetails)
-          }
+          this.redirect(statusDetails)
         }
       })
       .catch(error => {

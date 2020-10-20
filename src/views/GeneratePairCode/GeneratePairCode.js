@@ -37,13 +37,13 @@ import i18n from 'i18next';
 
 export function errorClass(errors, touched, i) {
   return (errors &&
-    errors.imei &&
-    errors.imei[i] &&
-    errors.imei[i]['imei'] &&
+    errors.imeis &&
+    errors.imeis[i] &&
+    errors.imeis[i]['imei'] &&
     touched &&
-    touched.imei &&
-    touched.imei[i] &&
-    touched.imei[i]['imei']) ? 'is-invalid' : '';
+    touched.imeis &&
+    touched.imeis[i] &&
+    touched.imeis[i]['imei']) ? 'is-invalid' : '';
 
 }
 
@@ -91,48 +91,48 @@ class CaseForm extends Component {
               <CardBody>
                 <div className="add-remove-wrap position-relative">
                   <FieldArray
-                    name="imei"
+                    name="imeis"
                     render={({insert, remove, push}) => {
                       return (
                         <div>
-                          {values.imei && values.imei.length > 0 && values.imei.map((imei, i) => {
+                          {values.imeis && values.imeis.length > 0 && values.imeis.map((imei, i) => {
                             let inputClass = errorClass(errors, touched, i);
                             let reInputClass = errorClass(errors, touched, i);
                             return (
                               <Row key={i} className="mt-3">
                                 <Col xs={6}>
-                                  <Field name={`imei[${i}].imei`} component={doubleEntryInput} label={i18n.t('typeImei')}
+                                  <Field name={`imeis[${i}].imei`} component={doubleEntryInput} label={i18n.t('typeImei')}
                                          type="text" placeholder={i18n.t('typeImei') + ' ' + (i + 1)} requiredStar groupClass="mb-0"
                                          inputClass={inputClass}/>
                                   {errors &&
-                                  errors.imei &&
-                                  errors.imei[i] &&
-                                  errors.imei[i]['imei'] &&
+                                  errors.imeis &&
+                                  errors.imeis[i] &&
+                                  errors.imeis[i]['imei'] &&
                                   touched &&
-                                  touched.imei &&
-                                  touched.imei[i] &&
-                                  touched.imei[i]['imei'] &&
+                                  touched.imeis &&
+                                  touched.imeis[i] &&
+                                  touched.imeis[i]['imei'] &&
                                   (
                                     <span className="invalid-feedback p-0"
-                                          style={{display: 'block'}}>{errors.imei[i]['imei']}</span>
+                                          style={{display: 'block'}}>{errors.imeis[i]['imei']}</span>
                                   )}
                                 </Col>
                                 <Col xs={6}>
                                   <div className="buttonbox">
-                                    <Field name={`imei[${i}].reImei`} component={doubleEntryInput} label={i18n.t('retypeImei')}
+                                    <Field name={`imeis[${i}].reImei`} component={doubleEntryInput} label={i18n.t('retypeImei')}
                                            type="text" placeholder={i18n.t('retypeImei') + ' ' + (i + 1)} requiredStar
                                            groupClass="mb-0" inputClass={reInputClass}/>
                                     {errors &&
-                                    errors.imei &&
-                                    errors.imei[i] &&
-                                    errors.imei[i]['reImei'] &&
+                                    errors.imeis &&
+                                    errors.imeis[i] &&
+                                    errors.imeis[i]['reImei'] &&
                                     touched &&
-                                    touched.imei &&
-                                    touched.imei[i] &&
-                                    touched.imei[i]['reImei'] &&
+                                    touched.imeis &&
+                                    touched.imeis[i] &&
+                                    touched.imeis[i]['reImei'] &&
                                     (
                                       <span className="invalid-feedback p-0"
-                                            style={{display: 'block'}}>{errors.imei[i]['reImei']}</span>
+                                            style={{display: 'block'}}>{errors.imeis[i]['reImei']}</span>
                                     )}
                                     {i !== 0 && <button
                                       type="button"
@@ -146,9 +146,9 @@ class CaseForm extends Component {
                           })}
                           <Button
                             type="button"
-                            className={values.imei.length >= 5 ? 'btn btn-outline-primary mt-3 d-none text-capitalize' : 'btn btn-outline-primary mt-3 text-capitalize'}
+                            className={values.imeis.length >= 5 ? 'btn btn-outline-primary mt-3 d-none text-capitalize' : 'btn btn-outline-primary mt-3 text-capitalize'}
                             onClick={() => push({imei: "", reImei: ""})}
-                            disabled={values.imei.length >= 5}
+                            disabled={values.imeis.length >= 5}
                           >
                               {i18n.t('addImeIs')}
                           </Button>
@@ -180,7 +180,7 @@ class CaseForm extends Component {
                            requiredStar/>
                   </Col>
                   <Col xs={12} sm={6}>
-                    <Field name="model" component={renderInput} label={i18n.t('modelName')} type="text"
+                    <Field name="model_name" component={renderInput} label={i18n.t('modelName')} type="text"
                            placeholder={i18n.t('modelName')} requiredStar/>
                   </Col>
                 </Row>
@@ -188,27 +188,27 @@ class CaseForm extends Component {
                 <Row>
                   <Col xs={12} sm={6}>
                     <Field name="mac" component={doubleEntryInput} label={i18n.t('macWiFiAddress')} type="text"
-                           placeholder={i18n.t('macWiFiAddress')} maxLength={23} />
+                           placeholder={i18n.t('macWiFiAddress')} maxLength={23}/>
                   </Col>
                   <Col xs={12} sm={6}>
                     <Field name="retype_mac" component={doubleEntryInput} label={i18n.t('retypeMacWiFiAddress')} type="text"
-                           placeholder={i18n.t('retypeMacWiFiAddress')} maxLength={23} />
+                           placeholder={i18n.t('retypeMacWiFiAddress')} maxLength={23}/>
                   </Col>
                 </Row>
 
                 <Row>
                   <Col xs={12} sm={6}>
                     <RenderSelect
-                      value={values.rat}
+                      value={values.technologies}
                       onChange={setFieldValue}
                       options={[{label: '2G', value: '2G'}, {label: '3G', value: '3G'}, {
                         label: '4G',
                         value: '4G'
                       }, {label: '5G', value: '5G'}]}
                       onBlur={setFieldTouched}
-                      error={errors.rat}
-                      touched={touched.rat}
-                      fieldName="rat"
+                      error={errors.technologies}
+                      touched={touched.technologies}
+                      fieldName="technologies"
                       label={i18n.t('radioAccessTechnologies')}
                       placeholder={i18n.t('selectTechnologies')}
                       requiredStar
@@ -217,7 +217,7 @@ class CaseForm extends Component {
                     />
                   </Col>
                   <Col xs={12} sm={6}>
-                    <Field name="contact_no" component={renderInput} label={i18n.t('referenceMsisdn')} type="text"
+                    <Field name="ref_msisdn" component={renderInput} label={i18n.t('referenceMsisdn')} type="text"
                            placeholder={i18n.t('referenceMsisdn')} requiredStar maxLength={15} groupClass="prefix-group"
                            prefix={COUNTRY_CODE}/>
                   </Col>
@@ -238,55 +238,55 @@ class CaseForm extends Component {
 
 const MyEnhancedForm = withFormik({
   mapPropsToValues: () => ({
-    "imei": [{imei: '', reImei: ''}],
+    "imeis": [{imei: '', reImei: ''}],
     "serial_no": "",
     "retype_serial_no": "",
     "brand": "",
-    "model": "",
+    "model_name": "",
     "mac": "",
     "retype_mac": "",
-    "rat": [],
-    "contact_no": ""
+    "technologies": [],
+    "ref_msisdn": ""
   }),
 
   // Custom sync validation
   validate: values => {
     let errors = {};
-    let imei = [];
-    if (values.imei.length > 0) {
-      for (let i = 0; i < values.imei.length; i++) {
-        if (typeof errors.imei === "undefined") {
-          errors.imei = [];
+    let imeis = [];
+    if (values.imeis.length > 0) {
+      for (let i = 0; i < values.imeis.length; i++) {
+        if (typeof errors.imeis === "undefined") {
+          errors.imeis = [];
         }
-        if (typeof errors.imei[i] === "undefined") {
-          errors.imei[i] = {};
-        }
-
-
-        if (!values.imei[i].imei) {
-          errors.imei[i].imei = i18n.t('validation.thisFieldIsRequired')
-        } else if (!/^(?=.[A-F]*)(?=.[0-9]*)[A-F0-9]{14,16}$/.test(values.imei[i].imei)) {
-          errors.imei[i].imei = i18n.t('validation.imeiMustContain')
+        if (typeof errors.imeis[i] === "undefined") {
+          errors.imeis[i] = {};
         }
 
-        if (!values.imei[i].reImei) {
-          errors.imei[i].reImei = i18n.t('validation.thisFieldIsRequired')
-        } else if (!/^(?=.[A-F]*)(?=.[0-9]*)[A-F0-9]{14,16}$/.test(values.imei[i].reImei)) {
-          errors.imei[i].reImei = i18n.t('validation.imeiMustContain')
-        } else if (values.imei[i].imei !== values.imei[i].reImei) {
-          errors.imei[i].reImei = i18n.t('validation.enteredImeiDoesnTMatch')
+
+        if (!values.imeis[i].imei) {
+          errors.imeis[i].imei = i18n.t('validation.thisFieldIsRequired')
+        } else if (!/^(?=.[A-F]*)(?=.[0-9]*)[A-F0-9]{14,16}$/.test(values.imeis[i].imei)) {
+          errors.imeis[i].imei = i18n.t('validation.imeiMustContain')
         }
-        if (values.imei[i].imei.length > 0) {
-          imei.push(values.imei[i].imei)
+
+        if (!values.imeis[i].reImei) {
+          errors.imeis[i].reImei = i18n.t('validation.thisFieldIsRequired')
+        } else if (!/^(?=.[A-F]*)(?=.[0-9]*)[A-F0-9]{14,16}$/.test(values.imeis[i].reImei)) {
+          errors.imeis[i].reImei = i18n.t('validation.imeiMustContain')
+        } else if (values.imeis[i].imei !== values.imeis[i].reImei) {
+          errors.imeis[i].reImei = i18n.t('validation.enteredImeiDoesnTMatch')
         }
-        if (Object.keys(errors.imei[i]).length === 0) {
-          delete (errors.imei[i]);
+        if (values.imeis[i].imei.length > 0) {
+          imeis.push(values.imeis[i].imei)
         }
-        if (Object.keys(errors.imei).length === 0) {
-          delete (errors.imei);
+        if (Object.keys(errors.imeis[i]).length === 0) {
+          delete (errors.imeis[i]);
+        }
+        if (Object.keys(errors.imeis).length === 0) {
+          delete (errors.imeis);
         }
         /*
-        if (hasDuplicates(imei)) {
+        if (hasDuplicates(imeis)) {
           errors.duplicateImeis = 'Duplicate IMEIs found'
         }*/
       }
@@ -302,20 +302,20 @@ const MyEnhancedForm = withFormik({
     } else if (values.brand.length >= 1000) {
       errors.brand = i18n.t('validation.brandMustBe1000CharactersOrLess')
     }
-    if (!values.model) {
-      errors.model = i18n.t('validation.thisFieldIsRequired')
-    }else if (languageCheck(values.model) === false && !/[-() ]/g.test(values.model)){
-      errors.model = i18n.t('validation.langError')
+    if (!values.model_name) {
+      errors.model_name = i18n.t('validation.thisFieldIsRequired')
+    }else if (languageCheck(values.model_name) === false && !/[-() ]/g.test(values.model_name)){
+      errors.model_name = i18n.t('validation.langError')
     }
-    else if (!/^([a-zA-Z ()'-])([a-zA-Z 0-9 ()'-])*$/i.test(values.model) ) {
-      errors.model = i18n.t('validation.modelNameMustContainCharactersAndACombinationOf')
-    } else if (values.model.length >= 1000) {
-      errors.model = i18n.t('validation.modelNameMustBe1000CharactersOrLess')
+    else if (!/^([a-zA-Z ()'-])([a-zA-Z 0-9 ()'-])*$/i.test(values.model_name) ) {
+      errors.model_name = i18n.t('validation.modelNameMustContainCharactersAndACombinationOf')
+    } else if (values.model_name.length >= 1000) {
+      errors.model_name = i18n.t('validation.modelNameMustBe1000CharactersOrLess')
     }
 
     if (!values.serial_no) {
       errors.serial_no = i18n.t('validation.thisFieldIsRequired')
-    } else if (!/^\S{1,100}$/i.test(values.serial_no)) {
+    } else if (!/^([a-zA-Z0-9])([a-zA-Z 0-9.'_-])*$/i.test(values.serial_no)) {
       errors.serial_no = i18n.t('validation.serialNumberMustContainCharactersAndACombinationOf')
     } else if (values.serial_no.length >= 1000) {
       errors.serial_no = i18n.t('validation.serialNumberMustBe1000CharactersOrLess')
@@ -327,26 +327,24 @@ const MyEnhancedForm = withFormik({
       errors.retype_serial_no = i18n.t('validation.enteredSerialNumberDoesnTMatch')
     }
 
-    if(values.mac) {
+    if (!values.mac) {
 
-      if (!/^([0-9A-F]{2,4}[.:-]){3,7}([0-9A-F]{2,4})$/i.test(values.mac)) {
-        errors.mac = i18n.t('validation.invalidFormatValidFormatsAreGivenInDescription')
-      }
-
+    } else if (!/^([0-9A-F]{2,4}[.:-]){3,7}([0-9A-F]{2,4})$/i.test(values.mac)) {
+      errors.mac = i18n.t('validation.invalidFormatValidFormatsAreGivenInDescription')
     }
 
     if (values.mac !== values.retype_mac) {
       errors.retype_mac = i18n.t('validation.enteredMacAddressDoesnTMatch')
     }
 
-    if (!values.rat || !values.rat.length) {
-      errors.rat = i18n.t('validation.thisFieldIsRequired')
+    if (!values.technologies || !values.technologies.length) {
+      errors.technologies = i18n.t('validation.thisFieldIsRequired')
     }
 
-    if (!values.contact_no) {
-      errors.contact_no = i18n.t('validation.thisFieldIsRequired')
-    } else if (!/^3([0-9]{9})$/i.test(values.contact_no)) {
-      errors.contact_no = i18n.t('validation.invalidFormatValidFormatIs3001234567')
+    if (!values.ref_msisdn) {
+      errors.ref_msisdn = i18n.t('validation.thisFieldIsRequired')
+    } else if (!/^([0-9]{1,11})$/i.test(values.ref_msisdn)) {
+      errors.ref_msisdn = i18n.t('validation.invalidFormatValidFormatIs3001234567891')
     }
 
     return errors;
@@ -363,35 +361,36 @@ const MyEnhancedForm = withFormik({
 function prepareAPIRequest(values) {
   // Validate Values before sending
   const searchParams = {};
-  if (values.contact_no) {
-    // searchParams.contact_no = {}
-    // searchParams.contact_no.CC = COUNTRY_CODE;
-    // searchParams.contact_no.SN = values.contact_no;
-    searchParams.contact_no = COUNTRY_CODE + values.contact_no;
+  if (values.ref_msisdn) {
+    searchParams.CONTACT = {}
+    searchParams.CONTACT.CC = COUNTRY_CODE;
+    searchParams.CONTACT.SN = values.ref_msisdn;
   }
-  if (values.model) {
-    searchParams.model = values.model;
+  if (values.model_name) {
+    searchParams.MODEL = values.model_name;
   }
   if (values.brand) {
-    searchParams.brand = values.brand;
+    searchParams.BRAND = values.brand;
   }
   if (values.serial_no) {
-    searchParams.serial_no = values.serial_no;
+    searchParams.Serial_No = values.serial_no;
   }
   if (values.mac) {
-    searchParams.mac = values.mac;
+    searchParams.MAC = values.mac;
+  } else {
+    searchParams.MAC = ''
   }
-  if (values.rat) {
-    searchParams.rat = [];
-    for (let i = 0; i < values.rat.length; i++) {
-      searchParams.rat[i] = values.rat[i].value;
+  if (values.technologies) {
+    searchParams.RAT = [];
+    for (let i = 0; i < values.technologies.length; i++) {
+      searchParams.RAT[i] = values.technologies[i].value;
     }
-    searchParams.rat = searchParams.rat.join(',');
+    searchParams.RAT = searchParams.RAT.join(',');
   }
-  if (values.imei.length > 0) {
-    searchParams.imei = [];
-    for (let i = 0; i < values.imei.length; i++) {
-      searchParams.imei[i] = values.imei[i].imei
+  if (values.imeis.length > 0) {
+    searchParams.IMEI = [];
+    for (let i = 0; i < values.imeis.length; i++) {
+      searchParams.IMEI[i] = values.imeis[i].imei
     }
   }
   return searchParams;
@@ -430,13 +429,13 @@ class GeneratePairCode extends Component {
   }
 
   saveCase(config, values) {
-    instance.post('/device-reg', values, config)
+    instance.post('/sbmt-dev-info', values, config)
       .then(response => {
         if (response.data) {
           this.setState({loading: false, caseSubmitted: true});
           //toast.success('Case has been registered successfully!');
           const statusDetails = {
-            id: response.data["pair-code"],
+            id: response.data.pair_code,
             icon: 'fa fa-check',
             action: i18n.t('registered'),
             showButton: false,
@@ -452,6 +451,7 @@ class GeneratePairCode extends Component {
       })
       .catch(error => {
         errors(this, error);
+        console.log(error);
       })
   }
 

@@ -108,14 +108,13 @@
   "validation.thisFieldIsRequired": "This field is required",
   "validation.enteredSerialNumberDoesnTMatch": "Entered Serial Number doesn't match",
   "validation.serialNumberMustBe1000CharactersOrLess": "Serial Number must be 1000 characters or less",
-  "validation.serialNumberMustContainCharactersAndACombinationOf": "The Serial Number cannot contain white spaces and can only be less than 100 characters",
+  "validation.serialNumberMustContainCharactersAndACombinationOf": "The Serial Number can only contain Alphanumeric characters",
   "validation.invalidFormatValidFormatsAreGivenInDescription": "Invalid format, valid formats are given in description",
   "validation.enteredMacAddressDoesnTMatch": "Entered MAC Address doesn't match",
-  "validation.invalidFormatValidFormatIs3001234567": "Invalid format, valid format is: 3001234567",
-  "validation.invalideFileExtension": "Invalid file extension, only support 'csv or txt'",
+  "validation.invalidFormatValidFormatIs3001234567891": "Invalid format, valid format is: 3001234567891",
+  "validation.invalideFileExtension": "Invalid file extension, only support 'csv'",
   "validation.fileSize": "File size limit exceeds from 5MB",
   "validation.IMSIMustbeDigits": "IMSI must be digits only [0-9]",
   "validation.IMSIShouldbeLessThan": "IMSI length should be 15 digits",
-  "validation.pleaseEnter12DigitMSISDN": "please enter 12 digit MSISDN",
   "validation.IMSIDoesNotMatch": "IMSIs does not match"
 }
