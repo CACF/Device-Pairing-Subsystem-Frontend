@@ -118,7 +118,7 @@ export function errors (context, error) {
       } else if (error.response.status === 403) {
         SweetAlert({
           title: i18n.t('error'),
-          message: i18n.t('credentialMatch'),
+          message: error.response.data.message,
           type: 'error'
         })
         //toast.error('These credential do not match our records.');
@@ -153,7 +153,7 @@ export function errors (context, error) {
       } else if (error.response.status === 422) {
         SweetAlert({
           title: i18n.t('error'),
-          message: error.response.data.Error === null ? i18n.t('unprocessibleEntity'): error.response.data.Error,
+          message: error.response.data.message ? error.response.data.message: i18n.t('unprocessibleEntity'),
           type: 'error'
         });
         let errors = error.response.data.messages;
@@ -204,9 +204,9 @@ export function getExtension(param){
  */
 export function downloadBulkFile(config,link, e) {
   e.preventDefault()
-  instance.get(`mno-error-file?url=${link}`, config)
+  instance.get(`download-error-file?url=${link}`, config)
     .then(response => {
-      if (response.status === 200) {
+      if (response.data) {
         try {
           let file = new File([response.data], `Bulk.csv`);
           FileSaver.saveAs(file);

@@ -45,19 +45,19 @@ class SearchForm extends Component {
   handleReset(e,val) {
     e.preventDefault()
     switch(val){
-      case 'IMEI':
+      case 'imei':
         this.props.setFieldValue('imei','')
         this.props.delSearchQuery(this.props.currSearchQuery,val)
         break;
-      case 'Serial_No':
+      case 'serial_no':
         this.props.setFieldValue('serial_no','')
         this.props.delSearchQuery(this.props.currSearchQuery,val)
         break;
-      case 'MAC':
+      case 'mac':
         this.props.setFieldValue('mac','')
         this.props.delSearchQuery(this.props.currSearchQuery,val)
         break;
-      case 'CONTACT':
+      case 'contact':
         this.props.setFieldValue('contact','')
         this.props.delSearchQuery(this.props.currSearchQuery,val)
         break;
@@ -132,6 +132,11 @@ const MyEnhancedForm = withFormik({
       if (!values.imei && !values.serial_no && !values.mac && !values.contact) {
           errors.oneOfFields = i18n.t('validation.oneOfTheAboveFieldsIsRequired')
       }
+      if (values.contact) {
+        if (values.contact.length < 12 || values.contact.length > 12) {
+          errors.contact = i18n.t('validation.pleaseEnter12DigitMSISDN')
+        }
+      }
       return errors;
   },
 
@@ -148,16 +153,16 @@ function prepareAPIRequest(values) {
     // Validate Values before sending
     const searchParams = {};
     if(values.imei) {
-        searchParams.IMEI = values.imei
+        searchParams.imei = values.imei
     }
     if(values.serial_no) {
-        searchParams.Serial_No = values.serial_no
+        searchParams.serial_no = values.serial_no
     }
     if(values.mac) {
-        searchParams.MAC = values.mac
+        searchParams.mac = values.mac
     }
     if(values.contact) {
-        searchParams.CONTACT = values.contact
+        searchParams.contact = values.contact
     }
     return searchParams;
 }
@@ -257,12 +262,25 @@ class SearchRequests extends Component {
       let start = this.state.start;
       let limit = this.state.limit;
       let searchQuery = this.state.searchQuery;
-      const postSearchData = {
-        "start": start,
-        "limit": limit,
-        "search_args": searchQuery
+      let postSearchData = '';
+      if(searchQuery.contact)
+      {
+        postSearchData += '&contact=' + searchQuery.contact;
       }
-      instance.post('/authority-search?start='+start+'&limit='+limit, postSearchData, config)
+      if(searchQuery.imei)
+      {
+        postSearchData += '&imei='+ searchQuery.imei;
+      }
+      if(searchQuery.mac)
+      {
+        postSearchData += '&mac='+ searchQuery.mac;
+      }
+      if(searchQuery.serial_no)
+      {
+        postSearchData += '&serial_no=' + searchQuery.serial_no;
+      }
+      
+      instance.get('/device-search?start='+start+'&limit='+limit + postSearchData, config)
           .then(response => {
               if(response.data.message) {
                 this.setState({ loading: false });
@@ -281,16 +299,16 @@ class SearchRequests extends Component {
     Object.keys(values).map(key=>{
       //if(key!=='request_type'){
         switch(key){
-          case 'IMEI':
-            query.push({filter:key,filterName:'IMEI',value: values[key]})
+          case 'imei':
+            query.push({filter:key,filterName:'imei',value: values[key]})
             break;
-          case 'Serial_No':
+          case 'serial_no':
             query.push({filter:key,filterName:i18n.t('serialNumber'),value: values[key]})
             break;
-          case 'MAC':
+          case 'mac':
             query.push({filter:key,filterName:i18n.t('macAddress'),value: values[key]})
             break;
-          case 'CONTACT':
+          case 'contact':
             query.push({filter:key,filterName:i18n.t('referenceMsisdn'),value: values[key]})
             break;
            default:
@@ -343,7 +361,7 @@ class SearchRequests extends Component {
                   <td data-label={i18n.t('brand')}>{searched_request.brand}</td>
                   <td data-label={i18n.t('modelName')}>{searched_request.model}</td>
                   <td data-label={i18n.t('serialNumber')}>{searched_request.serial_no}</td>
-                  <td data-label={i18n.t('macAddress')}>{searched_request.mac}</td>
+                  <td data-label={i18n.t('macAddress')}>{searched_request.mac==="00:00:00:00" ? "" : searched_request.mac}</td>
                   <td data-label={i18n.t('pairingCode')}>{searched_request.pair_code}</td>
                   <td data-label={i18n.t('referenceMsisdn')}>{searched_request.contact}</td>
                   <td data-label={i18n.t('pairingStatus')}>{(searched_request.is_active) ? 'Unused': 'Used'}</td>
@@ -379,7 +397,7 @@ class SearchRequests extends Component {
                             <TableLoader />
                         </div>
                     )
-                    : ((this.state.data || {}).cases || []).length > 0
+                    : ((this.state.data || {}).cases || []).length > 0 && this.state.currSearchQuery.length > 0
                     ? <div>
                         <Card className="mb-1">
                             <CardHeader className="border-bottom-0">
