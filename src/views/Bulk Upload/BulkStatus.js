@@ -59,9 +59,10 @@ class BulkStatus extends Component {
     }
   }
   render() {
-    const { details } = this.props.location.state;
+    const { details } = this.props.location.state ? this.props.location.state : { };
     return (
       <div>
+        { details ? 
         <div className="submitted">
           <div className="icon-box">
             <i className={details.icon}></i>
@@ -93,6 +94,7 @@ class BulkStatus extends Component {
             </div>
           </div>
         </div>
+        : this.props.history.push({ pathname: '/bulk-upload'})}
       </div>
     )
   }

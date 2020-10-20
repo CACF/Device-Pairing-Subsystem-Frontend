@@ -110,13 +110,14 @@
   "validation.thisFieldIsRequired": "este campo es requerido",
   "validation.enteredSerialNumberDoesnTMatch": "El número de serie introducido no coincide",
   "validation.serialNumberMustBe1000CharactersOrLess": "El número de serie debe tener 1000 caracteres o menos",
-  "validation.serialNumberMustContainCharactersAndACombinationOf": "El número de serie solo puede contener caracteres alfanuméricos",
+  "validation.serialNumberMustContainCharactersAndACombinationOf": "El número de serie no puede contener espacios en blanco y solo puede tener menos de 100 caracteres",
   "validation.invalidFormatValidFormatsAreGivenInDescription": "Formato inválido, los formatos válidos se dan en la descripción",
   "validation.enteredMacAddressDoesnTMatch": "La dirección MAC ingresada no coincide",
-  "validation.invalidFormatValidFormatIs3001234567891": "Formato no válido, el formato válido es: 3001234567891",
-  "validation.invalideFileExtension": "Extensión de archivo inválida, solo soporta 'csv'",
+  "validation.invalidFormatValidFormatIs3001234567": "Formato no válido, el formato válido es: 3001234567",
+  "validation.invalideFileExtension": "Extensión de archivo inválida, solo soporta 'csv o txt'",
   "validation.fileSize": "El límite de tamaño de archivo excede de 5MB",
   "validation.IMSIMustbeDigits": "IMSI debe ser solo dígitos [0-9]",
   "validation.IMSIShouldbeLessThan": "La longitud de IMSI debe ser de 15 dígitos",
+  "validation.pleaseEnter12DigitMSISDN": "por favor ingrese 12 dígitos MSISDN",
   "validation.IMSIDoesNotMatch": "IMSIs no coincide"
 }
