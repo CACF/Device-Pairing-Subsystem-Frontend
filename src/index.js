@@ -47,7 +47,7 @@ import Keycloak from 'keycloak-js';
 import decode from 'jwt-decode'
 import Base64 from 'base-64';
 import Page401 from "./views/Errors/Page401";
-
+import "babel-polyfill"
 const { clientId, realm } = settings.keycloak;
 
 let kc = Keycloak({
